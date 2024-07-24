@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AnalogClock = () => {
   const digits = [1,2,3,4,5,6,7,8,9,10,11,12]
+  const [hourRot, setHourRot] = useState()
+  const [minRot, setMinRot] = useState()
+  const [secRot, setSecRot] = useState()
+
   let radius = 150
   let centreoffset = radius - 20
+
+  let displayTime = () =>{
+    let date = new Date()
+    let hour = date.getHours()
+    let minute = date.getMinutes()
+    let seconds = date.getSeconds()
+    let h_rotation = hour * 30 + minute/2
+    let m_rotation = 6 * minute
+    let s_rotation = 6 * seconds
+    console.log(h_rotation)
+    console.log(m_rotation)
+    console.log(s_rotation)
+    setHourRot(h_rotation)
+    setMinRot(m_rotation)
+    setSecRot(s_rotation)
+  }
+
+  useEffect(()=>{
+    const interval = setInterval(displayTime, 1000)
+    return ()=> clearInterval(interval)
+  }, [hourRot, minRot, secRot])
+
   return (
     <div className='bg-gray-900 h-[300px] w-[300px] rounded-full relative flex items-center justify-center'>
       {
