@@ -23,6 +23,21 @@ const AnalogClock = () => {
           </div>
         ))
       }
+      <div className='h-2 w-2 rounded-full bg-white absolute'></div>
+
+      <div className='absolute w-2 h-[100px] bg-white'
+      style={{
+        transformOrigin:'bottom center', // sets origin to bottom centre
+        transform: 'translateY(-50px)'
+      }}></div> 
+      <div className='absolute w-2 h-[110px] bg-red-700'style={{
+        transformOrigin:'bottom center', // sets origin to bottom centre
+        transform: 'translateY(-55px)'
+      }}></div>
+      <div className='absolute w-2 h-[70px] bg-yellow-200'style={{
+        transformOrigin:'bottom center', // sets origin to bottom centre
+        transform: 'translateY(-35px)'
+      }}></div>
     </div>
   )
 };
