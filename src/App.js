@@ -3,7 +3,7 @@ import AnalogClock from './components/AnalogClock'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex items-center justify-center h-screen">
       <AnalogClock />
     </div>
   );
