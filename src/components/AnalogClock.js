@@ -1,71 +1,92 @@
 import React, { useEffect, useState } from 'react';
 
 const AnalogClock = () => {
-  const digits = [1,2,3,4,5,6,7,8,9,10,11,12]
-  const [hourRot, setHourRot] = useState()
-  const [minRot, setMinRot] = useState()
-  const [secRot, setSecRot] = useState()
+  const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const [hourRot, setHourRot] = useState(0);
+  const [minRot, setMinRot] = useState(0);
+  const [secRot, setSecRot] = useState(0);
 
-  let radius = 150
-  let centreoffset = radius - 20
+  const radius = 150;
+  const centerOffset = radius - 20; // adjust if needed
 
-  let displayTime = () =>{
-    let date = new Date()
-    let hour = date.getHours()
-    let minute = date.getMinutes()
-    let seconds = date.getSeconds()
-    let h_rotation = hour * 30 + minute/2
-    let m_rotation = 6 * minute
-    let s_rotation = 6 * seconds
-    console.log(h_rotation)
-    console.log(m_rotation)
-    console.log(s_rotation)
-    setHourRot(h_rotation)
-    setMinRot(m_rotation)
-    setSecRot(s_rotation)
-  }
+  const displayTime = () => {
+    const date = new Date();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const seconds = date.getSeconds();
 
-  useEffect(()=>{
-    const interval = setInterval(displayTime, 1000)
-    return ()=> clearInterval(interval)
-  }, [hourRot, minRot, secRot])
+    const h_rotation = (hour % 12) * 30 + minute / 2;
+    const m_rotation = minute * 6;
+    const s_rotation = seconds * 6;
+
+    setHourRot(h_rotation);
+    setMinRot(m_rotation);
+    setSecRot(s_rotation);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(displayTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className='bg-gray-900 h-[300px] w-[300px] rounded-full relative flex items-center justify-center'>
-      {
-        digits.map((digit)=>(
-          <div className='absolute'
+      {digits.map((digit) => (
+        <div
+          key={digit}
+          className='absolute'
+          style={{
+            transform: `rotate(${digit * 30}deg) translateY(-${centerOffset}px)`,
+            transformOrigin: 'center',
+          }}
+        >
+          <span
+            className='text-white font-bold'
             style={{
-              transform:`rotate(${digit*30}deg) translateY(-${centreoffset}px)`,
-              transformOrigin: 'center'
+              transform: `rotate(-${digit * 30}deg)`,
             }}
           >
-            <span className='text-white font-bold'
-              style={{
-                transform: `rotate(-${digit*30}deg)`
-              }}
-            >{digit}</span>
+            {digit}
+          </span>
+        </div>
+      ))}
 
-          </div>
-        ))
-      }
       <div className='h-2 w-2 rounded-full bg-white absolute'></div>
 
-      <div className='absolute w-2 h-[100px] bg-white'
-      style={{
-        transformOrigin:'bottom center', // sets origin to bottom centre
-        transform: 'translateY(-50px)'
-      }}></div> 
-      <div className='absolute w-2 h-[110px] bg-red-700'style={{
-        transformOrigin:'bottom center', // sets origin to bottom centre
-        transform: 'translateY(-55px)'
-      }}></div>
-      <div className='absolute w-2 h-[70px] bg-yellow-200'style={{
-        transformOrigin:'bottom center', // sets origin to bottom centre
-        transform: 'translateY(-35px)'
-      }}></div>
+      {/* Minute Hand */}
+      <div
+        className='absolute w-2'
+        style={{
+          height: '100px',
+          backgroundColor: 'white',
+          transform: `rotate(${minRot}deg) translateY(-50px)`,
+          transformOrigin: 'bottom center',
+        }}
+      ></div>
+
+      {/* Second Hand */}
+      <div
+        className='absolute w-2'
+        style={{
+          height: '110px',
+          backgroundColor: 'red',
+          transform: `rotate(${secRot}deg) translateY(-55px)`,
+          transformOrigin: 'bottom center',
+        }}
+      ></div>
+
+      {/* Hour Hand */}
+      <div
+        className='absolute w-2'
+        style={{
+          height: '70px',
+          backgroundColor: 'yellow',
+          transform: `rotate(${hourRot}deg) translateY(-35px)`,
+          transformOrigin: 'bottom center',
+        }}
+      ></div>
     </div>
-  )
+  );
 };
 
 export default AnalogClock;
