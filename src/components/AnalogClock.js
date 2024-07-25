@@ -53,35 +53,32 @@ const AnalogClock = () => {
 
       <div className='h-2 w-2 rounded-full bg-white absolute'></div>
 
+      {/* Hour Hand */}
+      <div
+        className='absolute w-1 bg-yellow-300 rounded-r-full'
+        style={{
+          height: '70px',
+          transform: `translateY(-35px) rotate(${hourRot}deg) `,
+          transformOrigin: 'bottom center',
+        }}
+      ></div>
+
       {/* Minute Hand */}
       <div
-        className='absolute w-2'
+        className='absolute w-1 bg-white rounded-r-full'
         style={{
           height: '100px',
-          backgroundColor: 'white',
-          transform: `rotate(${minRot}deg) translateY(-50px)`,
+          transform: `translateY(-50px) rotate(${minRot}deg) `, // the order of translate matters, if you use rotate first then it will rotate first and then translate to position therefore not rotating at centre rather than like a circling effect
           transformOrigin: 'bottom center',
         }}
       ></div>
 
       {/* Second Hand */}
       <div
-        className='absolute w-2'
+        className='absolute w-1 bg-red-700 rounded-r-full'
         style={{
           height: '110px',
-          backgroundColor: 'red',
-          transform: `rotate(${secRot}deg) translateY(-55px)`,
-          transformOrigin: 'bottom center',
-        }}
-      ></div>
-
-      {/* Hour Hand */}
-      <div
-        className='absolute w-2'
-        style={{
-          height: '70px',
-          backgroundColor: 'yellow',
-          transform: `rotate(${hourRot}deg) translateY(-35px)`,
+          transform: `translateY(-55px) rotate(${secRot}deg) `,
           transformOrigin: 'bottom center',
         }}
       ></div>
